@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type {
   Event,
-  HeatmapPoint,
+  ExtendedHeatmapPoint,
   HotSpot,
   EventCategory,
   TimeRange,
@@ -24,8 +24,8 @@ interface HeatmapState {
   addEvent: (event: Event) => void;
 
   // Processed heatmap points (after H3 binning)
-  heatmapPoints: HeatmapPoint[];
-  setHeatmapPoints: (points: HeatmapPoint[]) => void;
+  heatmapPoints: ExtendedHeatmapPoint[];
+  setHeatmapPoints: (points: ExtendedHeatmapPoint[]) => void;
 
   // Hot spots (top active regions)
   hotSpots: HotSpot[];

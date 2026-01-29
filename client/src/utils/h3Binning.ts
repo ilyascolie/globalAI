@@ -1,5 +1,5 @@
 import * as h3 from 'h3-js';
-import type { Event, HeatmapPoint, HotSpot, EventCategory, TimeRange } from '../types';
+import type { Event, ExtendedHeatmapPoint, HotSpot, EventCategory, TimeRange } from '../types';
 
 // H3 resolution for different zoom levels
 const H3_RESOLUTION_GLOBAL = 3; // ~100km hexagons
@@ -56,7 +56,7 @@ export function aggregateEventsToH3(
   timeRange: TimeRange,
   categories: Set<EventCategory>,
   resolution: number = H3_RESOLUTION_GLOBAL
-): HeatmapPoint[] {
+): ExtendedHeatmapPoint[] {
   const now = new Date();
   const bins = new Map<string, {
     events: Event[];
@@ -105,7 +105,7 @@ export function aggregateEventsToH3(
   }
 
   // Convert bins to HeatmapPoints
-  const points: HeatmapPoint[] = [];
+  const points: ExtendedHeatmapPoint[] = [];
 
   for (const [h3Index, bin] of bins) {
     // Get hex center coordinates
@@ -140,7 +140,7 @@ export function aggregateEventsToH3(
  * Normalize intensities to prevent one huge story from washing out everything
  * Uses logarithmic scaling with percentile-based normalization
  */
-export function normalizeIntensities(points: HeatmapPoint[]): HeatmapPoint[] {
+export function normalizeIntensities(points: ExtendedHeatmapPoint[]): ExtendedHeatmapPoint[] {
   if (points.length === 0) return points;
 
   // Get all intensities
@@ -185,7 +185,7 @@ export function normalizeIntensities(points: HeatmapPoint[]): HeatmapPoint[] {
  * Generate top 5 hot spots (most active regions)
  */
 export function generateHotSpots(
-  points: HeatmapPoint[],
+  points: ExtendedHeatmapPoint[],
   count: number = 5
 ): HotSpot[] {
   // Sort by decayed intensity (already normalized)
@@ -246,7 +246,7 @@ function getRegionName(lat: number, lng: number): string {
  * Returns a 360x180 Float32Array (1 degree resolution)
  */
 export function createDataTexture(
-  points: HeatmapPoint[],
+  points: ExtendedHeatmapPoint[],
   radius: number = 1.5,
   falloff: number = 2.0
 ): Float32Array {
@@ -307,7 +307,7 @@ export function processEvents(
   radius: number,
   falloff: number
 ): {
-  points: HeatmapPoint[];
+  points: ExtendedHeatmapPoint[];
   hotSpots: HotSpot[];
   dataTexture: Float32Array;
 } {

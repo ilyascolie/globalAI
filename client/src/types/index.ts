@@ -1,42 +1,15 @@
-// Event categories
-export type EventCategory =
-  | 'conflict'
-  | 'politics'
-  | 'disaster'
-  | 'economics'
-  | 'health'
-  | 'technology'
-  | 'environment';
+// Export types from other files
+export * from './events';
+export * from './context';
+
+// Re-export common types for convenience
+import type { Event, EventCategory, HeatmapPoint as BaseHeatmapPoint } from './events';
 
 // Time range options for filtering
 export type TimeRange = '1h' | '6h' | '24h' | '7d';
 
-// News event from the backend
-export interface Event {
-  id: string;
-  title: string;
-  summary: string;
-  lat: number;
-  lng: number;
-  timestamp: Date;
-  source: string;
-  sourceUrl: string;
-  category: EventCategory;
-  intensity: number; // 0-100 scale
-  imageUrl?: string;
-  entities: string[]; // Extracted people, organizations, places
-  gdeltTone?: number; // GDELT sentiment score
-  relatedEventIds: string[];
-}
-
-// Heatmap point aggregated from H3 hexagonal bins
-export interface HeatmapPoint {
-  lat: number;
-  lng: number;
-  intensity: number; // Aggregated from events in this hex cell
-  eventCount: number;
-  dominantCategory: EventCategory;
-  h3Index: string; // H3 hexagonal grid cell ID
+// Extended heatmap point with additional fields for visualization
+export interface ExtendedHeatmapPoint extends BaseHeatmapPoint {
   events: Event[]; // Events in this cell
   decayedIntensity: number; // After temporal decay applied
 }
