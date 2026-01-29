@@ -1,0 +1,223 @@
+// Country centroids for geocoding
+export const COUNTRY_CENTROIDS: Record<string, { lat: number; lng: number; aliases: string[] }> = {
+  USA: { lat: 39.8283, lng: -98.5795, aliases: ['United States', 'US', 'U.S.', 'America', 'American'] },
+  UK: { lat: 55.3781, lng: -3.4360, aliases: ['United Kingdom', 'Britain', 'British', 'England', 'Scotland', 'Wales'] },
+  China: { lat: 35.8617, lng: 104.1954, aliases: ['Chinese', 'PRC', 'Beijing'] },
+  Russia: { lat: 61.5240, lng: 105.3188, aliases: ['Russian', 'Moscow', 'Kremlin'] },
+  Ukraine: { lat: 48.3794, lng: 31.1656, aliases: ['Ukrainian', 'Kyiv', 'Kiev'] },
+  Israel: { lat: 31.0461, lng: 34.8516, aliases: ['Israeli', 'Tel Aviv', 'Jerusalem'] },
+  Iran: { lat: 32.4279, lng: 53.6880, aliases: ['Iranian', 'Tehran', 'Persian'] },
+  France: { lat: 46.2276, lng: 2.2137, aliases: ['French', 'Paris'] },
+  Germany: { lat: 51.1657, lng: 10.4515, aliases: ['German', 'Berlin'] },
+  Japan: { lat: 36.2048, lng: 138.2529, aliases: ['Japanese', 'Tokyo'] },
+  India: { lat: 20.5937, lng: 78.9629, aliases: ['Indian', 'Delhi', 'Mumbai'] },
+  Brazil: { lat: -14.2350, lng: -51.9253, aliases: ['Brazilian'] },
+  Canada: { lat: 56.1304, lng: -106.3468, aliases: ['Canadian', 'Ottawa'] },
+  Australia: { lat: -25.2744, lng: 133.7751, aliases: ['Australian'] },
+  Mexico: { lat: 23.6345, lng: -102.5528, aliases: ['Mexican'] },
+  Argentina: { lat: -38.4161, lng: -63.6167, aliases: ['Argentine', 'Argentinian'] },
+  SouthKorea: { lat: 35.9078, lng: 127.7669, aliases: ['South Korea', 'Korea', 'Korean', 'Seoul'] },
+  NorthKorea: { lat: 40.3399, lng: 127.5101, aliases: ['North Korea', 'DPRK', 'Pyongyang'] },
+  Taiwan: { lat: 23.6978, lng: 120.9605, aliases: ['Taiwanese', 'Taipei'] },
+  Turkey: { lat: 38.9637, lng: 35.2433, aliases: ['Turkish', 'Ankara', 'Istanbul'] },
+  SaudiArabia: { lat: 23.8859, lng: 45.0792, aliases: ['Saudi', 'Riyadh'] },
+  Poland: { lat: 51.9194, lng: 19.1451, aliases: ['Polish', 'Warsaw'] },
+  Italy: { lat: 41.8719, lng: 12.5674, aliases: ['Italian', 'Rome'] },
+  Spain: { lat: 40.4637, lng: -3.7492, aliases: ['Spanish', 'Madrid'] },
+  Netherlands: { lat: 52.1326, lng: 5.2913, aliases: ['Dutch', 'Amsterdam'] },
+  Switzerland: { lat: 46.8182, lng: 8.2275, aliases: ['Swiss', 'Zurich', 'Geneva'] },
+  Sweden: { lat: 60.1282, lng: 18.6435, aliases: ['Swedish', 'Stockholm'] },
+  Norway: { lat: 60.4720, lng: 8.4689, aliases: ['Norwegian', 'Oslo'] },
+  Finland: { lat: 61.9241, lng: 25.7482, aliases: ['Finnish', 'Helsinki'] },
+  Greece: { lat: 39.0742, lng: 21.8243, aliases: ['Greek', 'Athens'] },
+  Egypt: { lat: 26.8206, lng: 30.8025, aliases: ['Egyptian', 'Cairo'] },
+  SouthAfrica: { lat: -30.5595, lng: 22.9375, aliases: ['South Africa', 'South African'] },
+  Nigeria: { lat: 9.0820, lng: 8.6753, aliases: ['Nigerian', 'Lagos'] },
+  Indonesia: { lat: -0.7893, lng: 113.9213, aliases: ['Indonesian', 'Jakarta'] },
+  Philippines: { lat: 12.8797, lng: 121.7740, aliases: ['Philippine', 'Filipino', 'Manila'] },
+  Vietnam: { lat: 14.0583, lng: 108.2772, aliases: ['Vietnamese', 'Hanoi'] },
+  Thailand: { lat: 15.8700, lng: 100.9925, aliases: ['Thai', 'Bangkok'] },
+  Pakistan: { lat: 30.3753, lng: 69.3451, aliases: ['Pakistani', 'Islamabad'] },
+  Bangladesh: { lat: 23.6850, lng: 90.3563, aliases: ['Bangladeshi', 'Dhaka'] },
+  Venezuela: { lat: 6.4238, lng: -66.5897, aliases: ['Venezuelan', 'Caracas'] },
+  Colombia: { lat: 4.5709, lng: -74.2973, aliases: ['Colombian', 'Bogota'] },
+  Chile: { lat: -35.6751, lng: -71.5430, aliases: ['Chilean', 'Santiago'] },
+  Peru: { lat: -9.1900, lng: -75.0152, aliases: ['Peruvian', 'Lima'] },
+  Cuba: { lat: 21.5218, lng: -77.7812, aliases: ['Cuban', 'Havana'] },
+  Syria: { lat: 34.8021, lng: 38.9968, aliases: ['Syrian', 'Damascus'] },
+  Iraq: { lat: 33.2232, lng: 43.6793, aliases: ['Iraqi', 'Baghdad'] },
+  Afghanistan: { lat: 33.9391, lng: 67.7100, aliases: ['Afghan', 'Kabul'] },
+  Myanmar: { lat: 21.9162, lng: 95.9560, aliases: ['Burma', 'Burmese'] },
+  Kazakhstan: { lat: 48.0196, lng: 66.9237, aliases: ['Kazakh'] },
+  Ethiopia: { lat: 9.1450, lng: 40.4897, aliases: ['Ethiopian', 'Addis Ababa'] },
+  Kenya: { lat: -0.0236, lng: 37.9062, aliases: ['Kenyan', 'Nairobi'] },
+  Morocco: { lat: 31.7917, lng: -7.0926, aliases: ['Moroccan', 'Rabat'] },
+  Algeria: { lat: 28.0339, lng: 1.6596, aliases: ['Algerian', 'Algiers'] },
+  Sudan: { lat: 12.8628, lng: 30.2176, aliases: ['Sudanese', 'Khartoum'] },
+  Gaza: { lat: 31.3547, lng: 34.3088, aliases: ['Palestinian', 'Palestine', 'West Bank', 'Hamas'] },
+  Lebanon: { lat: 33.8547, lng: 35.8623, aliases: ['Lebanese', 'Beirut', 'Hezbollah'] },
+  Jordan: { lat: 30.5852, lng: 36.2384, aliases: ['Jordanian', 'Amman'] },
+  UAE: { lat: 23.4241, lng: 53.8478, aliases: ['United Arab Emirates', 'Dubai', 'Abu Dhabi', 'Emirati'] },
+  Qatar: { lat: 25.3548, lng: 51.1839, aliases: ['Qatari', 'Doha'] },
+  Singapore: { lat: 1.3521, lng: 103.8198, aliases: ['Singaporean'] },
+  HongKong: { lat: 22.3193, lng: 114.1694, aliases: ['Hong Kong'] },
+  NewZealand: { lat: -40.9006, lng: 174.8860, aliases: ['New Zealand', 'Kiwi'] },
+  Ireland: { lat: 53.1424, lng: -7.6921, aliases: ['Irish', 'Dublin'] },
+  Portugal: { lat: 39.3999, lng: -8.2245, aliases: ['Portuguese', 'Lisbon'] },
+  Austria: { lat: 47.5162, lng: 14.5501, aliases: ['Austrian', 'Vienna'] },
+  Belgium: { lat: 50.5039, lng: 4.4699, aliases: ['Belgian', 'Brussels'] },
+  Denmark: { lat: 56.2639, lng: 9.5018, aliases: ['Danish', 'Copenhagen'] },
+  CzechRepublic: { lat: 49.8175, lng: 15.4730, aliases: ['Czech', 'Prague'] },
+  Romania: { lat: 45.9432, lng: 24.9668, aliases: ['Romanian', 'Bucharest'] },
+  Hungary: { lat: 47.1625, lng: 19.5033, aliases: ['Hungarian', 'Budapest'] },
+  Serbia: { lat: 44.0165, lng: 21.0059, aliases: ['Serbian', 'Belgrade'] },
+  Croatia: { lat: 45.1000, lng: 15.2000, aliases: ['Croatian', 'Zagreb'] },
+  Bulgaria: { lat: 42.7339, lng: 25.4858, aliases: ['Bulgarian', 'Sofia'] },
+};
+
+// Organization-based location mappings
+export const ORGANIZATION_LOCATIONS: Record<string, { lat: number; lng: number; name: string }[]> = {
+  NATO: [
+    { lat: 50.8476, lng: 4.3572, name: 'Belgium (NATO HQ)' },
+    { lat: 39.8283, lng: -98.5795, name: 'USA' },
+    { lat: 55.3781, lng: -3.4360, name: 'UK' },
+    { lat: 46.2276, lng: 2.2137, name: 'France' },
+    { lat: 51.1657, lng: 10.4515, name: 'Germany' },
+    { lat: 41.8719, lng: 12.5674, name: 'Italy' },
+    { lat: 56.1304, lng: -106.3468, name: 'Canada' },
+    { lat: 51.9194, lng: 19.1451, name: 'Poland' },
+  ],
+  EU: [
+    { lat: 50.8503, lng: 4.3517, name: 'Belgium (EU HQ)' },
+    { lat: 46.2276, lng: 2.2137, name: 'France' },
+    { lat: 51.1657, lng: 10.4515, name: 'Germany' },
+    { lat: 41.8719, lng: 12.5674, name: 'Italy' },
+    { lat: 40.4637, lng: -3.7492, name: 'Spain' },
+  ],
+  UN: [
+    { lat: 40.7489, lng: -73.9680, name: 'UN Headquarters, NYC' },
+    { lat: 46.2276, lng: 6.1432, name: 'UN Geneva' },
+  ],
+  BRICS: [
+    { lat: -14.2350, lng: -51.9253, name: 'Brazil' },
+    { lat: 61.5240, lng: 105.3188, name: 'Russia' },
+    { lat: 20.5937, lng: 78.9629, name: 'India' },
+    { lat: 35.8617, lng: 104.1954, name: 'China' },
+    { lat: -30.5595, lng: 22.9375, name: 'South Africa' },
+  ],
+  OPEC: [
+    { lat: 23.8859, lng: 45.0792, name: 'Saudi Arabia' },
+    { lat: 23.4241, lng: 53.8478, name: 'UAE' },
+    { lat: 32.4279, lng: 53.6880, name: 'Iran' },
+    { lat: 33.2232, lng: 43.6793, name: 'Iraq' },
+    { lat: 6.4238, lng: -66.5897, name: 'Venezuela' },
+  ],
+  G7: [
+    { lat: 39.8283, lng: -98.5795, name: 'USA' },
+    { lat: 56.1304, lng: -106.3468, name: 'Canada' },
+    { lat: 55.3781, lng: -3.4360, name: 'UK' },
+    { lat: 46.2276, lng: 2.2137, name: 'France' },
+    { lat: 51.1657, lng: 10.4515, name: 'Germany' },
+    { lat: 41.8719, lng: 12.5674, name: 'Italy' },
+    { lat: 36.2048, lng: 138.2529, name: 'Japan' },
+  ],
+  G20: [
+    { lat: 39.8283, lng: -98.5795, name: 'USA' },
+    { lat: 35.8617, lng: 104.1954, name: 'China' },
+    { lat: 36.2048, lng: 138.2529, name: 'Japan' },
+    { lat: 51.1657, lng: 10.4515, name: 'Germany' },
+    { lat: 20.5937, lng: 78.9629, name: 'India' },
+  ],
+};
+
+// Pattern-based market mappings
+export const MARKET_PATTERNS: { pattern: RegExp; locations: { lat: number; lng: number; name: string; confidence: number }[] }[] = [
+  {
+    pattern: /US Presidential|American President|White House|Biden|Trump|Harris/i,
+    locations: [{ lat: 38.8977, lng: -77.0365, name: 'Washington D.C.', confidence: 0.95 }],
+  },
+  {
+    pattern: /UK (Prime Minister|Election|General Election)|British PM|Sunak|Starmer/i,
+    locations: [{ lat: 51.5074, lng: -0.1278, name: 'London, UK', confidence: 0.95 }],
+  },
+  {
+    pattern: /French (President|Election)|Macron/i,
+    locations: [{ lat: 48.8566, lng: 2.3522, name: 'Paris, France', confidence: 0.95 }],
+  },
+  {
+    pattern: /German (Chancellor|Election)|Scholz/i,
+    locations: [{ lat: 52.5200, lng: 13.4050, name: 'Berlin, Germany', confidence: 0.95 }],
+  },
+  {
+    pattern: /Israel.*(Hamas|Gaza|War)|Gaza.*(War|Conflict|Ceasefire)/i,
+    locations: [
+      { lat: 31.0461, lng: 34.8516, name: 'Israel', confidence: 0.90 },
+      { lat: 31.3547, lng: 34.3088, name: 'Gaza', confidence: 0.90 },
+    ],
+  },
+  {
+    pattern: /Russia.*(Ukraine|Invasion|War)|Ukraine.*(Russia|War|Conflict)/i,
+    locations: [
+      { lat: 61.5240, lng: 105.3188, name: 'Russia', confidence: 0.90 },
+      { lat: 48.3794, lng: 31.1656, name: 'Ukraine', confidence: 0.90 },
+    ],
+  },
+  {
+    pattern: /Taiwan.*(China|Invasion|War)|China.*(Taiwan|Invasion)/i,
+    locations: [
+      { lat: 35.8617, lng: 104.1954, name: 'China', confidence: 0.85 },
+      { lat: 23.6978, lng: 120.9605, name: 'Taiwan', confidence: 0.85 },
+    ],
+  },
+  {
+    pattern: /Iran.*(Israel|Nuclear|Attack)|Israel.*(Iran|Attack)/i,
+    locations: [
+      { lat: 31.0461, lng: 34.8516, name: 'Israel', confidence: 0.85 },
+      { lat: 32.4279, lng: 53.6880, name: 'Iran', confidence: 0.85 },
+    ],
+  },
+  {
+    pattern: /North Korea.*(Nuclear|Missile|War)|Kim Jong/i,
+    locations: [{ lat: 40.3399, lng: 127.5101, name: 'North Korea', confidence: 0.90 }],
+  },
+  {
+    pattern: /Super Bowl|NFL|NBA Finals/i,
+    locations: [{ lat: 39.8283, lng: -98.5795, name: 'USA', confidence: 0.80 }],
+  },
+  {
+    pattern: /World Cup|FIFA/i,
+    locations: [{ lat: 0, lng: 0, name: 'Global', confidence: 0.50 }],
+  },
+  {
+    pattern: /Fed (Rate|Interest|Cut|Hike)|Federal Reserve|FOMC|Jerome Powell/i,
+    locations: [{ lat: 38.8921, lng: -77.0241, name: 'Federal Reserve, D.C.', confidence: 0.95 }],
+  },
+  {
+    pattern: /ECB|European Central Bank|Lagarde/i,
+    locations: [{ lat: 50.1109, lng: 8.6821, name: 'ECB, Frankfurt', confidence: 0.95 }],
+  },
+  {
+    pattern: /Bitcoin|Ethereum|Crypto/i,
+    locations: [{ lat: 0, lng: 0, name: 'Global', confidence: 0.30 }],
+  },
+  {
+    pattern: /S&P 500|Dow Jones|NASDAQ|Wall Street/i,
+    locations: [{ lat: 40.7060, lng: -74.0088, name: 'Wall Street, NYC', confidence: 0.90 }],
+  },
+  {
+    pattern: /Oscar|Academy Award/i,
+    locations: [{ lat: 34.0522, lng: -118.2437, name: 'Los Angeles', confidence: 0.85 }],
+  },
+  {
+    pattern: /Nobel Prize/i,
+    locations: [{ lat: 59.3293, lng: 18.0686, name: 'Stockholm, Sweden', confidence: 0.85 }],
+  },
+];
+
+// Category detection patterns
+export const CATEGORY_PATTERNS: { pattern: RegExp; category: 'election' | 'geopolitical' | 'disaster' | 'economic' | 'other' }[] = [
+  { pattern: /election|president|prime minister|vote|ballot|poll|candidate|party|democrat|republican|senate|congress|parliament/i, category: 'election' },
+  { pattern: /war|conflict|invasion|military|troops|missile|nuclear|sanctions|treaty|ceasefire|NATO|army|navy|attack/i, category: 'geopolitical' },
+  { pattern: /earthquake|hurricane|flood|wildfire|tsunami|tornado|climate|storm|disaster|volcano/i, category: 'disaster' },
+  { pattern: /inflation|interest rate|GDP|recession|stock|market|fed|economy|unemployment|trade|tariff|oil price|bitcoin|crypto/i, category: 'economic' },
+];
