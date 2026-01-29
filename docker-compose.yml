@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # PostgreSQL with PostGIS extension
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: globenews-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: globenews
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: globenews-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Backend API server
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: globenews-api
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/globenews
+      - REDIS_URL=redis://redis:6379
+      - ENABLE_WORKER=true
+      - GDELT_RATE_LIMIT=10
+      - NEWSAPI_KEY=${NEWSAPI_KEY:-}
+      - EVENTREGISTRY_KEY=${EVENTREGISTRY_KEY:-}
+      - CORS_ORIGIN=${CORS_ORIGIN:-*}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Background worker (optional separate process)
+  worker:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: globenews-worker
+    command: ["node", "dist/workers/index.js"]
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/globenews
+      - REDIS_URL=redis://redis:6379
+      - GDELT_RATE_LIMIT=10
+      - NEWSAPI_KEY=${NEWSAPI_KEY:-}
+      - EVENTREGISTRY_KEY=${EVENTREGISTRY_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - worker
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: globenews-network
