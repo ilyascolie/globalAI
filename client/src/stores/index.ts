@@ -1,4 +1,5 @@
 // Export all stores
+export * from './useHeatmapStore';
 export {
   useEventSelectionStore,
   selectCurrentEvent,
