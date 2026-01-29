@@ -1,0 +1,149 @@
+.info-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: rgba(15, 15, 25, 0.95);
+  backdrop-filter: blur(12px);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.info-panel.visible {
+  transform: translateX(0);
+}
+
+.info-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-panel-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.info-panel-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.info-value {
+  font-size: 1rem;
+  color: #fff;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+}
+
+.info-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
+}
+
+.info-note {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.info-note p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.info-note p + p {
+  margin-top: 0.5rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .info-panel {
+    width: 100%;
+    height: auto;
+    max-height: 60%;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+  }
+
+  .info-panel.visible {
+    transform: translateY(0);
+  }
+
+  .info-panel-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .info-panel-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
+
+/* Scrollbar styling */
+.info-panel-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.info-panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.info-panel-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.info-panel-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
