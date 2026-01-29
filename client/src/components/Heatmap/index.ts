@@ -1,1 +1,1 @@
-export { NewsHeatmap } from './NewsHeatmap';
+export { HeatmapLayer } from './HeatmapLayer';

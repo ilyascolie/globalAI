@@ -1,81 +1,104 @@
-import { useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
-import { Globe } from './components/Globe/Globe';
-import { Controls } from './components/Controls/Controls';
-import { EventPanel } from './components/EventPanel/EventPanel';
-import { useStore } from './stores/useStore';
-import { fetchEvents, fetchPredictions, fetchHeatmap } from './services/api';
+import { useEffect, useState } from 'react';
+import { Globe } from './components/Globe';
+import { Controls } from './components/Controls';
+import { EventPanel } from './components/EventPanel';
+import { PredictionPanel } from './components/Predictions/PredictionPanel';
+import { useHeatmapProcessor, useSampleData } from './hooks/useHeatmapProcessor';
+import { useHeatmapStore } from './stores/useHeatmapStore';
+import { usePredictionStore } from './stores/usePredictionStore';
+import { fetchPredictions } from './services/api';
+import type { ViewMode } from './types';
 import './App.css';
 
 function App() {
-  const { mode, setEvents, setPredictions, setHeatmapPoints, setIsLoading } = useStore();
+  const [mode, setMode] = useState<ViewMode>('combined');
 
-  // Fetch data on mount and when mode changes
+  // Process heatmap data when events/filters change
+  useHeatmapProcessor();
+
+  // Sample data generator for news
+  const { generateSampleEvents } = useSampleData();
+  const { isLoading: isLoadingNews, events } = useHeatmapStore();
+  const {
+    predictions,
+    selectedPrediction,
+    isLoading: isLoadingPredictions,
+    setPredictions,
+    setIsLoading: setIsPredictionsLoading
+  } = usePredictionStore();
+
+  // Load sample news data on mount
   useEffect(() => {
-    const loadData = async () => {
-      setIsLoading(true);
-      try {
-        if (mode === 'news' || mode === 'combined') {
-          const [eventsRes, heatmapRes] = await Promise.all([
-            fetchEvents({ limit: 100 }),
-            fetchHeatmap({ resolution: 'medium' }),
-          ]);
-          setEvents(eventsRes.events);
-          setHeatmapPoints(heatmapRes.points);
-        }
+    generateSampleEvents();
+  }, [generateSampleEvents]);
 
-        if (mode === 'predictions' || mode === 'combined') {
-          const predictionsRes = await fetchPredictions();
-          setPredictions(predictionsRes.predictions);
+  // Load predictions data
+  useEffect(() => {
+    const loadPredictions = async () => {
+      if (mode === 'predictions' || mode === 'combined') {
+        setIsPredictionsLoading(true);
+        try {
+          const response = await fetchPredictions();
+          setPredictions(response.predictions);
+        } catch (error) {
+          console.error('Error loading predictions:', error);
+        } finally {
+          setIsPredictionsLoading(false);
         }
-      } catch (error) {
-        console.error('Error loading data:', error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
-    loadData();
+    loadPredictions();
 
-    // Refresh every 5 minutes
-    const interval = setInterval(loadData, 5 * 60 * 1000);
+    // Refresh predictions every 5 minutes
+    const interval = setInterval(loadPredictions, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [mode, setEvents, setPredictions, setHeatmapPoints, setIsLoading]);
+  }, [mode, setPredictions, setIsPredictionsLoading]);
+
+  const isLoading = isLoadingNews || isLoadingPredictions;
 
   return (
     <div className="app">
-      <div className="canvas-container">
-        <Canvas
-          camera={{ position: [0, 0, 2.5], fov: 45 }}
-          gl={{ antialias: true, alpha: true }}
-        >
-          <color attach="background" args={['#0a0a0f']} />
-          <ambientLight intensity={0.3} />
-          <directionalLight position={[5, 3, 5]} intensity={1} />
-          <pointLight position={[-10, -10, -10]} intensity={0.3} color="#4a9eff" />
-          <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
-          <Globe />
-          <OrbitControls
-            enablePan={false}
-            enableZoom={true}
-            minDistance={1.2}
-            maxDistance={4}
-            rotateSpeed={0.5}
-            zoomSpeed={0.8}
-            dampingFactor={0.05}
-            enableDamping
-          />
-        </Canvas>
-      </div>
+      {/* Three.js Globe */}
+      <Globe className="globe-container" mode={mode} />
 
-      <Controls />
+      {/* UI Controls with mode toggle */}
+      <Controls mode={mode} onModeChange={setMode} />
+
+      {/* Event Panel for News */}
       <EventPanel />
 
-      <header className="app-header glass-card">
-        <h1>Global Events</h1>
-        <span className="tagline">Real-time news & predictions</span>
-      </header>
+      {/* Prediction Panel for Polymarket */}
+      {selectedPrediction && <PredictionPanel />}
+
+      {/* Loading indicator */}
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="loading-spinner" />
+          <p>Loading {mode === 'predictions' ? 'predictions' : 'events'}...</p>
+        </div>
+      )}
+
+      {/* Stats badges */}
+      <div className="stats-container">
+        {(mode === 'news' || mode === 'combined') && (
+          <div className="event-count">
+            <span className="count">{events.length}</span>
+            <span className="label">Events</span>
+          </div>
+        )}
+        {(mode === 'predictions' || mode === 'combined') && (
+          <div className="prediction-count">
+            <span className="count">{predictions.length}</span>
+            <span className="label">Markets</span>
+          </div>
+        )}
+      </div>
+
+      {/* Attribution */}
+      <div className="attribution">
+        Global Events & Predictions | Three.js + Polymarket
+      </div>
     </div>
   );
 }
